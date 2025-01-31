@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Multiple File Upload Page";
+    var successMessage = TempData["UploadSuccess"] as string;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Multiple File Upload</title>
+</head>
+<body>
+
+    <h2>Multiple File Upload</h2>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-12">
+            <form method="post" asp-controller="Upload" asp-action="MultipleFileUpload" enctype="multipart/form-data">
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <!-- Input for multiple files -->
+                <input type="file" name="Files" class="form-control" multiple />
+
+                <button type="submit" class="btn btn-primary">Upload</button>
+
+                <!-- Success message container -->
+                @if (!string.IsNullOrEmpty(successMessage))
+                {
+                    <div id="successMessage" style="background-color: #4CAF50; color: white; padding: 15px; margin-top: 10px; border-radius: 5px;">
+                        @successMessage
+                    </div>
+                }
+            </form>
+        </div>
+    </div>
+
+    <!-- Optionally, use JavaScript to show and hide the message -->
+    @if (!string.IsNullOrEmpty(successMessage))
+    {
+        <script type="text/javascript">
+            setTimeout(function() {
+                document.getElementById('successMessage').style.display = 'none';
+            }, 5000); // Hide after 5 seconds
+        </script>
+    }
+
+</body>
+</html>
